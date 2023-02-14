@@ -11,6 +11,7 @@ bullet.image = nil
 background = nil
 rock.image = nil
 score = 0
+credits = 0
 hearts = 3
 time = 0
 topbar = scale*12
@@ -109,7 +110,7 @@ if canShootTimer < 0 then
 end
   
 rockSpawnTimer = rockSpawnTimer - dt
-if rockSpawnTimer < 0 then
+if rockSpawnTimer < 0 and hearts > 0 then
   rockSpawnTimer = rockSpawnTimerMax
   
   randomSpawnY = math.random(topbar, love.graphics.getHeight()-rock.image:getHeight()*scale)
@@ -146,6 +147,7 @@ end
 			table.remove(bullets, j)
 			table.remove(rocks, i)
 			score = score +1
+      credits = credits + 1
 		end
 	end
 
@@ -208,15 +210,19 @@ function love.draw(dt)
     if hearts > 0 then
     love.graphics.draw(ship.image, ship.x, ship.y, nil, scale, scale)
   else
-    love.graphics.print("Press 'R' to restart", 0, love.graphics.getHeight()/3)
-    love.graphics.print("Total score: "..string.format("%.2f", score*math.sqrt(time)), 0, love.graphics.getHeight()/2)
+    love.graphics.setColor(0, 0, 0)
+    love.graphics.rectangle('fill', 0, love.graphics.getHeight()*1/3-topbar, love.graphics.getWidth(), love.graphics.getHeight()*1/3+topbar*3)
+    love.graphics.setColor(1, 1, 1)
+    love.graphics.print("Press 'R' to restart", topbar, love.graphics.getHeight()*1/3)
+    love.graphics.print("Total score: "..string.format("%.2f", score*math.sqrt(time)), topbar, love.graphics.getHeight()*2/3)
     end
     
     
     love.graphics.setColor(0, 0, 0)
     love.graphics.rectangle('fill', 0, 0, love.graphics.getWidth(), topbar)
     love.graphics.setColor(1, 1, 1)
-    love.graphics.print("Score: "..score, love.graphics.getWidth()/4, 0)
-    love.graphics.print("Health: "..hearts, love.graphics.getWidth()/2, 0)
-    love.graphics.print("Time: "..string.format("%.2f", time), love.graphics.getWidth()*3/4, 0)
+    love.graphics.print("Health: "..hearts, love.graphics.getWidth()*0, 0)
+    love.graphics.print("Time: "..string.format("%.2f", time), love.graphics.getWidth()*1/4, 0)
+    love.graphics.print("Score: "..score, love.graphics.getWidth()*1/2, 0)
+    love.graphics.print("Credits: "..credits, love.graphics.getWidth()*3/4, 0)
 end
