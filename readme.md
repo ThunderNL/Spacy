@@ -1,4 +1,4 @@
-# [Play this game in your browser!](https://thunder.nl.eu.org/spacy/)
+# [Play this game in your browser!](https://thunder.nl.eu.org/Spacy/)
 
 This is a remake of my original Spacy game, that was made in Microsoft MakeCode Arcade, this version is written in LÖVE for Lua.
 
